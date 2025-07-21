@@ -1,57 +1,51 @@
+def add(x, y):
+    return x + y
+def subtract(x, y):
+    return x - y
+def multiply(x, y):
+    return x * y
+def divide(x, y):
+    return x / y
 
-def add(num1, num2):
-    return num1 + num2
-def subtract(num1, num2):
-    return num1 - num2
-def multiply(num1, num2):
-    return num1 * num2
-def divide(num1, num2):
-    try:
-        return num1 / num2
-    except ZeroDivisionError:
-        print("Undefined!")
-
-def getValid_number(x):
+def get_num(x):
     while True:
         try:
             num = input(x)
             return float(num)
-        except:
-            print("Invalid input. Please enter a valid number.")
+        except ValueError:
+            print("use a valid number")
 
-def getValid_operator(x, y):
+def get_op(x, y):
     while True:
-        op = input(x).lower()
-        if op in y or op in ['quit', 'exit']:
-            return op
-        else:
-            print("Invalid operator, PLease use one these: +, -, *, /")
+        try:
+            op = input(x)
+            if op in y or op in ['quit', 'exit']:
+                return op
+        except:
+            print("Invalid Operator: PLease use valid operator like, +, -, *, /")
 
 def run_calculator():
+    print("when asked input always enter first then write, even if it is first input")
     operations = {
         '+': add,
         '-': subtract,
         '*': multiply,
         '/': divide
     }
-    current_result = getValid_number(input())
-    print(f"Starting with: {current_result}")
+    a = get_num(input("Enter a number: "))
     while True:
-        op = getValid_operator(input("Enter an operator: "), operations)
-        if op in ['quit', 'exit']:
-            print("Thank you for using Our Calculator!")
+        op1 = get_op(input("Enter an operator: "), operations)
+        if op1 in ['quit', 'exit']:
+            print("Thank you for using our calculator!")
             break
         
-        b = getValid_number(input())
-        op_function = operations[op]
-        new_result = op_function(current_result, b)
-        if new_result is None and op == "/":
-            continue
-        elif new_result is None:
-            print("Unexpected error occured during calculation.")
-            continue
-        print(new_result)
-        current_result = new_result
+        b = get_num(input("Enter a number: "))
+        op_func = operations[op1]
+        result = op_func(a, b)
+        print(result)
+        a = result
+
+
 
 if __name__ == "__main__":
-     run_calculator()
+    run_calculator()
